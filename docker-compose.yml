@@ -1,0 +1,45 @@
+services:
+  db:
+    image: mysql:8.4
+    container_name: nestjs-handson-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-nestjs_db}
+      MYSQL_USER: ${DB_USER:-nestjs_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-nestjs_password}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root}
+    ports:
+      - "3308:3306" # ポート衝突を避けるため3308を使用
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    container_name: nestjs-handson-app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4003:4003" # ポート衝突を避けるため4003を使用
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USERNAME: ${DB_USER:-nestjs_user}
+      DB_PASSWORD: ${DB_PASSWORD:-nestjs_password}
+      DB_DATABASE: ${DB_NAME:-nestjs_db}
+      PORT: 4003
+
+volumes:
+  db_data:
+

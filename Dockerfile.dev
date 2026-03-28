@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# package.jsonとpackage-lock.jsonをコピー
+COPY package*.json ./
+
+# 依存関係をインストール
+RUN npm install
+
+# アプリケーションのソースをコピー
+COPY . .
+
+# ポート公開
+EXPOSE 4003
+
+# 開発モードで起動（ホットリロード有効）
+CMD ["npm", "run", "start:dev"]
+
