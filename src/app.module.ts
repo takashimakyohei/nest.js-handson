@@ -12,7 +12,6 @@ import { BooksModule } from './books/books.module';
     ConfigModule.forRoot({ isGlobal: true, }),
     // TypeORM設定
     TypeOrmModule.forRootAsync({ useClass: DatabaseConfig, }),
-
     BooksModule,
   ],
   controllers: [AppController],

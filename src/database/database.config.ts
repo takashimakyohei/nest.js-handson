@@ -15,7 +15,7 @@ export class DatabaseConfig implements TypeOrmOptionsFactory {
       password: this.configService.get<string>('DB_PASSWORD', 'nestjs_password'),
       database: this.configService.get<string>('DB_DATABASE', 'nestjs_db'),
       entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: true, // 本番環境では false にする
+      synchronize: false,
       logging: true,
     };
   }
