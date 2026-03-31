@@ -1,18 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity('books')
-export class Book {
+@Entity('users')
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  title: string;
-
-  @Column({ name: 'user_id' })
-  userId: number;
-
-  @Column({ default: false, name: 'is_published' })
-  isPublished: boolean;
+  name: string;
 
   // DB側は 'created_at' に、TS側は 'createdAt' になる
   @CreateDateColumn({ name: 'created_at' })

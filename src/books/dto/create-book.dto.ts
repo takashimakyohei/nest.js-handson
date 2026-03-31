@@ -1,13 +1,13 @@
-import { IsString, IsBoolean, IsNotEmpty } from 'class-validator';
+import { IsString, IsBoolean, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateBookDto {
   @IsString()
   @IsNotEmpty()
   title: string;
 
-  @IsString()
+  @IsNumber()
   @IsNotEmpty()
-  author: string;
+  userId: number;
 
   @IsBoolean()
   isPublished: boolean;

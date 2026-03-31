@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseConfig } from './database/database.config';
 import { BooksModule } from './books/books.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { BooksModule } from './books/books.module';
     // TypeORM設定
     TypeOrmModule.forRootAsync({ useClass: DatabaseConfig, }),
     BooksModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
